@@ -1,0 +1,84 @@
+# ============================================
+# DATOS SENSIBLES Y REALES
+# ============================================
+# Datos originales (NUNCA subir)
+data/raw/*.csv
+data/raw/*.xlsx
+data/raw/*.xls
+data/raw/*.xlsm
+
+# Datos procesados que contienen información real
+data/processed/*.csv
+
+# ============================================
+# ARCHIVOS DE PYTHON Y ENTORNOS
+# ============================================
+# Entornos virtuales
+venv/
+env/
+ENV/
+.venv/
+
+# Archivos de caché de Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Archivos de configuración local
+.env
+*.local
+
+# ============================================
+# JUPYTER NOTEBOOK
+# ============================================
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+*.ipynb~  # Archivos de respaldo
+
+# ============================================
+# IDE Y EDITORES
+# ============================================
+# Jupyter
+.jupyter/
+jupyter_notebook_config.py
+
+# ============================================
+# SISTEMA OPERATIVO
+# ============================================
+# Windows
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Linux
+*~
+
+# ============================================
+# ARCHIVOS TEMPORALES Y LOGS
+# ============================================
+*.log
+*.tmp
+*.temp
+*.bak
+*.swp
+
+# ============================================
+# DOCUMENTACIÓN GENERADA (opcional)
+# ============================================
+docs/*.pdf
+outputs/*.png
+
+# ============================================
+# OTROS
+# ============================================
+*.zip
+*.tar.gz
+*.rar
