@@ -8,10 +8,6 @@ import csv
 import IPython
 from IPython.display import display, Markdown
 
-# ============================================
-# IMPRESIÓN DE VERSIONES
-# ============================================
-
 print("="*50)
 print("VERSIONES DE LIBRERÍAS")
 print("="*50)
@@ -22,3 +18,18 @@ print(f"matplotlib: {plt.matplotlib.__version__}")
 print(f"seaborn: {sns.__version__}")
 print(f"Pandas: {pd.__version__}")
 print(f"IPython: {IPython.__version__}")
+
+""" 
+Normalización de códigos de barra
+Convierte código de barras a string y elimina ceros al inicio
+"""
+def barcode_normalization(code):
+    if pd.isna(code): # Evalua si está vacío
+        return None
+    code = str(code).strip()
+    try:
+        # Esto elimina ceros al inicio automáticamente
+        code = str(int(float(code)))
+    except:
+        pass
+    return code
