@@ -9,8 +9,11 @@ import re
 import unicodedata
 import IPython
 import pathlib
+import rapidfuzz
 from pathlib import Path
 from IPython.display import display, Markdown
+from rapidfuzz import fuzz, process
+from itertools import combinations
 
 display(Markdown("### VERSIONES DE LIBRERIAS"))
 print(f"Python: {sys.version.split()[0]}")
@@ -20,6 +23,7 @@ print(f"matplotlib: {plt.matplotlib.__version__}")
 print(f"seaborn: {sns.__version__}")
 print(f"Pandas: {pd.__version__}")
 print(f"IPython: {IPython.__version__}")
+print(f"rapidfuzz versión: {rapidfuzz.__version__}")
 
 """ 
 Normalización de códigos de barra
@@ -196,7 +200,7 @@ def assign_entities_to_products(
         df_missing = df_missing[~df_missing['barcode_norm'].isin(codes_to_exclude.index)]
     
     # 3. Mostrar estadísticas
-    display(Markdown(f"#### Análisis de productos sin {entity_name}"))
+    display(Markdown(f"#### Asignación de productos sin {entity_name}"))
     print(f"Productos sin {entity_name} (excluyendo conflictivos): {len(df_missing)}")
     
     # 4. Aplicar mapa de entidades
@@ -223,6 +227,6 @@ def assign_entities_to_products(
     # 8. Guardar CSV
     df_import.to_csv(output_path, index=False)
     display(Markdown(f"##### Archivo '{output_path.name}' generado"))
-    print(f"   Contiene {len(df_import)} productos para actualizar")
+    print(f"Contiene {len(df_import)} productos para actualizar")
     
     return df_import, pendings
