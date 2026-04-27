@@ -70,8 +70,8 @@ def diagnose_missing(df, column, description="valores"):
 
 """
 def prepare_data_and_diagnose(
-    df_odoo,                    # DataFrame original de Odoo
-    df_int,                     # DataFrame original de Interfuerza
+    df_odoo_copy,                    # DataFrame original de Odoo
+    df_int_copy,                     # DataFrame original de Interfuerza
     target_column,              # Columna a diagnosticar ('seller_ids' o 'x_studio_...')
     entity_name,                # 'proveedores' o 'marcas'
     int_code_col,               # Columna de código en Interfuerza ('UPC Code')
@@ -88,16 +88,12 @@ def prepare_data_and_diagnose(
     - entity_dict: diccionario código → lista de entidades
     """
     
-    # 1. Crear copias de trabajo
-    df_odoo_copy = df_odoo.copy()
-    df_int_copy = df_int.copy()
-    
-    # 2. Normalización de códigos de barras
+    # 1. Normalización de códigos de barras
     display(Markdown("### Normalización de códigos"))
     df_odoo_copy['barcode_norm'] = df_odoo_copy['barcode'].apply(barcode_normalization)
     df_int_copy['barcode_norm'] = df_int_copy[int_code_col].apply(barcode_normalization)
     
-    # 3. Mostrar muestras de normalización
+    # 2. Mostrar muestras de normalización
     display(Markdown("#### Muestras de códigos normalizados"))
     overview = pd.DataFrame({
         'original_odoo': df_odoo_copy['barcode'].head(5),
@@ -107,11 +103,11 @@ def prepare_data_and_diagnose(
     })
     display(overview)
     
-    # 4. Diagnóstico inicial
+    # 3. Diagnóstico inicial
     display(Markdown("### Diagnóstico inicial"))
     missing_mask = diagnose_missing(df_odoo_copy, target_column, entity_name)
     
-    # 5. Creación de diccionario (código → lista de entidades)
+    # 4. Creación de diccionario (código → lista de entidades)
     df_int_entities = df_int_copy.dropna(subset=['barcode_norm', int_entity_col])
     entity_dict = df_int_entities.groupby('barcode_norm')[int_entity_col].apply(list).to_dict()
     
